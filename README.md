@@ -7,3 +7,9 @@ Thanks to it's ANSI C interface, FreeImage is usable in many languages including
 
 The library comes in two versions: a binary DLL distribution that can be linked against any WIN32/WIN64 C/C++ compiler and a source distribution.
 Workspace files for Microsoft Visual Studio provided, as well as makefiles for Linux, Mac OS X and other systems.
+
+-----------------------------------------------------------------------------
+https://freeimage.sourceforge.io/'
+
+FreeImage was an abandoned project back in 2018, and so I have made a fork so I can maintain its usability in other projects using CMake instead
+of the host of other platforms.

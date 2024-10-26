@@ -18,5 +18,3 @@ file(GLOB_RECURSE SRC
 project(${PROJECT_NAME})
 
 add_library(${PROJECT_NAME} STATIC ${SRC} ${INC})
-
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ZLib)
