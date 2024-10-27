@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
 cmake_policy(SET CMP0077 NEW)
 
-# Set the C++ standard to C++17
-set(CMAKE_CXX_STANDARD 17)
+# Set the C++ standard to C++14
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(PROJECT_NAME "freeimage")
+set(PROJECT_NAME "FreeImage")
 
 # ------------------- FreeImage -------------------
 
@@ -26,13 +26,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(LibJPEG)
 
-# # LibJXR (NOT ORIGINAL SOURCE (MICROSOFT GARBAGE))
-# FetchContent_Declare(
-#     LibJXR
-#     GIT_REPOSITORY          https://github.com/4creators/jxrlib.git
-#     GIT_TAG                 master
-# )
-# FetchContent_MakeAvailable(LibJXR)
+# LibJXR (NOT ORIGINAL SOURCE (MICROSOFT GARBAGE))
+FetchContent_Declare(
+    LibJXR
+    GIT_REPOSITORY          https://github.com/4creators/jxrlib.git
+    GIT_TAG                 master
+)
+FetchContent_MakeAvailable(LibJXR)
 
 # LibOpenJPEG
 FetchContent_Declare(
@@ -84,16 +84,21 @@ FetchContent_MakeAvailable(LibWebP)
 
 file(GLOB_RECURSE INC
     "Source/FreeImage/*.h"
-    "Source/FreeImageLib/*.h"
     "Source/FreeImageToolkit/*.h"
     "Source/Metadata/*.h"
+    "Source/CacheFile.h"
+    "Source/FreeImage.h"
+    "Source/FreeImageIO.h"
+    "Source/MapIntrospector.h"
+    "Source/Plugin.h"
+    "Source/Quantizers.h"
+    "Source/ToneMapping.h"
+    "Source/Utilities.h"
 )
 
 file(GLOB_RECURSE SRC
     "Source/FreeImage/*.cpp"
     "Source/FreeImage/*.c"
-    "Source/FreeImageLib/*.cpp"
-    "Source/FreeImageLib/*.c"
     "Source/FreeImageToolkit/*.cpp"
     "Source/FreeImageToolkit/*.c"
     "Source/Metadata/*.cpp"
@@ -105,3 +110,20 @@ project(${PROJECT_NAME})
 add_library(${PROJECT_NAME} STATIC ${SRC} ${INC})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/OpenEXR/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/OpenEXR/Half/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/OpenEXR/Iex/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/OpenEXR/IexMath/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/OpenEXR/IlmImf/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/OpenEXR/IlmThread/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/OpenEXR/Imath/)
+# target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/LibJXR/jxrgluelib/)
+# target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/LibJXR/image/sys/)
+# target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Source/ZLib/)
+
+# New Includes
+
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${FETCHCONTENT_BASE_DIR}/libjxr-src/jxrgluelib/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${FETCHCONTENT_BASE_DIR}/libjxr-src/image/sys/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${FETCHCONTENT_BASE_DIR}/zlib-src/)
